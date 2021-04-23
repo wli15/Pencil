@@ -1,0 +1,19 @@
+body {
+    background-color: beige;
+}
+
+nav {
+    background-color: #DCDCF5;
+}
+
+a {
+    color: #00006F;
+}
+
+a:hover {
+    color: #00868C;
+}
+
+#home {
+    font-weight: bold;
+}
