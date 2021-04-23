@@ -13,3 +13,7 @@ arielS, ethanM, williamL -- 2021-04-21 7:45
 - started on the design doc
 - created a solid idea on what the site does
 
+
+arielS, ethanM, williamL -- 2021-04-22 9:50
+- completed the design doc
+- linked the submodule again
