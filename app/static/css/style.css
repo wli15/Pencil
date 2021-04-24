@@ -5,13 +5,14 @@ body {
 
 nav {
     background-color: #DCDCF5;
+    color: #00006F;
 }
 
 nav.a {
     color: #00006F;
 }
 
-a:hover {
+nav.a:hover {
     color: #00868C;
 }
 
