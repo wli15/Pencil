@@ -23,6 +23,7 @@ nav.a:hover {
 
 .nav-link {
     color: #00006F;
+    white-space: nowrap;
 }
 
 .navbar-brand {

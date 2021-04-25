@@ -3,14 +3,22 @@
 
 <html lang="en">
     <head>
-        <style>
-            body {
-                color: #00006F;
-            }
-        </style>
+        {% block head %}
+        {% endblock %}
     </head>
     <body>
         {% block main %}
+
+        <div class="container">
+            <br>
+            <div class="row align-items-center">
+                <div class="col"></div>
+                <div class="col" style="text-align: center;">
+                    <h1><span style="font-weight: 300;">welcome, </span>{{ username }}</h1>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
         
         {% endblock %}
     </body>
