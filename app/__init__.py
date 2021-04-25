@@ -16,17 +16,21 @@ def index():
         return redirect("/home")
     return redirect("/login")
 
+
 @app.route("/login")
 def login():
     return render_template("login.html")
+
 
 @app.route("/signup")
 def signup():
     return render_template("signup.html")
 
+
 @app.route("/home")
 def home():
     return render_template("index.html")
+
 
 @app.route("/signupRequest", methods=["POST"])
 def signupRequst():
@@ -36,6 +40,7 @@ def signupRequst():
         return redirect("/signup")
     registerUser(tempUser, tempPass)
     return redirect("/home")
+
 
 @app.route("/loginRequest", methods=["POST"])
 def loginRequest():

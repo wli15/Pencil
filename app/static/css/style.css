@@ -18,5 +18,14 @@ nav.a:hover {
 
 #home {
     font-weight: bold;
+    color: #00006F;
+}
+
+.nav-link {
+    color: #00006F;
+}
+
+.navbar-brand {
+    color: #00006F;
 }
 
