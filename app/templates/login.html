@@ -12,7 +12,7 @@
         </style>
     </head>
     <body>
-        <form>
+        <form action="loginRequest" method="POST">
             <div class="shadow-lg p-3 mb-5 bg-body rounded" id="form-box" style="margin-top: 160px; margin-left: 28%; margin-right: 28%; min-width: 400px;">
                 <div class="mb-3">
                     <h1>log in</h1>
@@ -20,11 +20,11 @@
                 <br>
                 <div class="mb-3">
                     <label for="inputUsername" class="form-label">username</label>
-                    <input type="text" class="form-control" id="inputUser">
+                    <input type="text" class="form-control" id="inputUser" name="username">
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">password</label>
-                    <input type="password" class="form-control" id="inputPass">
+                    <input type="password" class="form-control" id="inputPass" name="password">
                 </div>
                 <div class="form-text">don't have an account? <a href="/signup">sign up</a></div>
                 <br>
