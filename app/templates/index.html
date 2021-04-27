@@ -10,13 +10,13 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                background: #353535;
+                background: #DCDCF5;
                 font-size: 3rem;
-                color: #fff;
-                box-shadow: rgba(3, 8, 20, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
-                height: 100%;
-                width: 100%;
-                border-radius: 4px;
+                box-shadow: 6px 6px 1px 0.5px rgba(3, 8, 20, 0.1);
+                height: 120px;
+                width: 120px;
+                border-radius: 50%;
+                
                 transition: all 500ms;
                 overflow: hidden;
 
@@ -26,26 +26,32 @@
             }
   
             .card:hover {
-                box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
-                transform: translateY(-3px) scale(1.1);
+                box-shadow: 12px 12px 2px 1px rgba(2, 8, 20, 0.1);
+                transform: translateY(-1.5px) scale(1.05);
             }
 
             .basic-grid {
                 display: grid;
                 gap: 1rem;
 
-                grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             }
 
             .grid-container {
               display: grid;
-              margin-left: 20%;
-              margin-right: 20%;
+              margin-left: 30%;
+              margin-right: 30%;
             }
 
-            #banana-popup, #strawberry-popup {
+            #banana-popup, #strawberry-popup, #apple-popup, #pineapple-popup {
               position: absolute;
               transition: 0.1s;
+              display: flex;
+              flex-direction: column;
+              min-width: 15vw;
+              width: 20vw;
+              z-index: 1;
+              gap: 0;
             }
 
             
@@ -60,46 +66,58 @@
             <div class="row align-items-center">
                 <div class="col"></div>
                 <div class="col" style="text-align: center;">
-                    <h1><span style="font-weight: 300;">welcome, </span>{{ username }}</h1>
+                    <h1 style="font-size: 3rem;"><span style="font-weight: 300;">welcome, </span>{{ username }}</h1>
+                    <br><br>
+                    <p style="font-size: larger;">select your fruit of choice</p>
                 </div>
                 <div class="col"></div>
             </div>
         </div>
 
-        <br><br><br><br>
+        <br><br><br>
 
         <div class="grid-container">
           <section class="basic-grid">
-            <div id="banana" class="card">banana</div>
-            <div id="banana-popup" style="display: none;">banana info</div>
-            <div id="strawberry" class="card">strawberry</div>
-            <div id="strawberry-popup" style="display: none;">strawberry info</div>
-            <div id="apple" class="card">apple</div>
-            <div id="pineapple" class="card">pineapple</div>
+            <div id="banana" class="card"><img src="https://img.icons8.com/emoji/96/000000/banana-emoji.png"/></div>
+            <div id="banana-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">
+              <h3>banana facts</h3>
+              <p style="margin-bottom: 1px;">{</p>
+              {% for key, value in banana_data.items() %}
+              <p style="text-indent: 10%; margin-bottom: 1px;">{{ key }}: {{ value }}</p>
+              {% endfor %}
+              <p style="margin-bottom: 1px;">}</p>
+            </div>
+            <div id="strawberry" class="card"><img src="https://img.icons8.com/emoji/96/000000/strawberry-emoji.png"/></div>
+            <div id="strawberry-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">
+              <h3>strawberry facts</h3>
+              <p style="margin-bottom: 1px;">{</p>
+              {% for key, value in strawberry_data.items() %}
+              <p style="text-indent: 10%; margin-bottom: 1px;">{{ key }}: {{ value }}</p>
+              {% endfor %}
+              <p style="margin-bottom: 1px;">}</p>
+            </div>
+            <div id="apple" class="card"><img src="https://img.icons8.com/emoji/96/000000/red-apple.png"/></div>
+            <div id="apple-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">
+              <h3>apple facts</h3>
+              <p style="margin-bottom: 1px;">{</p>
+              {% for key, value in apple_data.items() %}
+              <p style="text-indent: 10%; margin-bottom: 1px;">{{ key }}: {{ value }}</p>
+              {% endfor %}
+              <p style="margin-bottom: 1px;">}</p>
+            </div>
+            <div id="pineapple" class="card"><img src="https://img.icons8.com/emoji/96/000000/pineapple-emoji.png"/></div>
+            <div id="pineapple-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">
+              <h3>pineapple facts</h3>
+              <p style="margin-bottom: 1px;">{</p>
+              {% for key, value in pineapple_data.items() %}
+              <p style="text-indent: 10%; margin-bottom: 1px;">{{ key }}: {{ value }}</p>
+              {% endfor %}
+              <p style="margin-bottom: 1px;">}</p>
+            </div>
           </section>
         </div>
 
-        <br>
-
-        {% for fruit in fruit_data %}
-
-          {% for key, value in fruit.items() %}
-
-            <p>{{ key }}: {{ value }}</p>
-
-          {% endfor %}
-
-        {% endfor %}
-
         <script>
-          // let fruits = document.getElementsByClassName("card");
-          // console.log(fruits)
-
-          // for (fruit of fruits) {
-          //   fruit.onmouseover = () => {
-          //     console.log(fruit);
-          //   }
-          // }
 
           let banana = document.getElementById("banana");
           let strawberry = document.getElementById("strawberry");
@@ -108,14 +126,22 @@
 
           let banana_popup = document.getElementById("banana-popup");
           let strawberry_popup = document.getElementById("strawberry-popup");
+          let apple_popup = document.getElementById("apple-popup");
+          let pineapple_popup = document.getElementById("pineapple-popup");
 
           document.addEventListener('mousemove', function(e){
             var x = e.clientX;
             var y = e.clientY;
-            banana_popup.style.left = x + 'px';
-            banana_popup.style.top = y + 'px';
-            strawberry_popup.style.left = x + 'px';
-            strawberry_popup.style.top = y + 'px';
+            var xoffset = 50;
+            var yoffset = -80;
+            banana_popup.style.left = x + xoffset + 'px';
+            banana_popup.style.top = y + yoffset + 'px';
+            strawberry_popup.style.left = x + xoffset + 'px';
+            strawberry_popup.style.top = y + yoffset + 'px';
+            apple_popup.style.left = x + xoffset + 'px';
+            apple_popup.style.top = y + yoffset + 'px';
+            pineapple_popup.style.left = x + xoffset + 'px';
+            pineapple_popup.style.top = y + yoffset + 'px';
           });
           
 
@@ -135,9 +161,17 @@
           }
           apple.onmouseover = () => {
             console.log(apple.id);
+            apple_popup.style.display = 'grid';
+          }
+          apple.onmouseout = () => {
+            apple_popup.style.display = 'none';
           }
           pineapple.onmouseover = () => {
             console.log(pineapple.id);
+            pineapple_popup.style.display = 'grid';
+          }
+          pineapple.onmouseout = () => {
+            pineapple_popup.style.display = 'none';
           }
         </script>
         

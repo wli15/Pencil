@@ -31,14 +31,37 @@ def signup():
 
 @app.route("/home")
 def home():
-    fruits = ['apple','banana','strawberry','pineapple']
-    fruit_data = []
+    fruits = ['banana', 'strawberry', 'apple', 'pineapple']
+    banana_data = {}
+    strawberry_data = {}
+    apple_data = {}
+    pineapple_data = {}
     for x in fruits:
         with urllib.request.urlopen('https://www.fruityvice.com/api/fruit/{}'.format(x)) as response:
             data = response.read()
             json_data = json.loads(data)
-            fruit_data.append(json_data)
-    return render_template("index.html", username=session['username'], fruit_data=fruit_data )#, apple_data = apple, banana_data = banana, strawberry_data = strawberry, pineapple_data = pineapple)
+            del json_data['id']
+            for key, value in json_data['nutritions'].items():
+                if key == 'calories':
+                    json_data[key] = value
+                else:
+                    json_data[key] = str(value) + 'g'
+            del json_data['nutritions']
+
+            if json_data['name'].lower() == 'banana':
+                del json_data['name']
+                banana_data = json_data
+            elif json_data['name'].lower() == 'strawberry':
+                del json_data['name']
+                strawberry_data = json_data
+            elif json_data['name'].lower() == 'apple':
+                del json_data['name']
+                apple_data = json_data
+            elif json_data['name'].lower() == 'pineapple':
+                del json_data['name']
+                pineapple_data = json_data
+
+    return render_template("index.html", username=session['username'], apple_data=apple_data, banana_data=banana_data, strawberry_data=strawberry_data, pineapple_data=pineapple_data)
 
 
 @app.route("/signupRequest", methods=["POST"])
