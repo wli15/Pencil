@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, session
+import urllib.request
 from db_manager import *
-import requests
+import json
 import os
 
 app = Flask(__name__)
@@ -30,11 +31,13 @@ def signup():
 
 @app.route("/home")
 def home():
-    apple_data = requests.get('https://www.fruityvice.com/api/fruit/apple')
-    banana_data = requests.get('https://www.fruityvice.com/api/fruit/banana')
-    strawberry_data = requests.get('https://www.fruityvice.com/api/fruit/strawberry')
-    pineapple_data = requests.get('https://www.fruityvice.com/api/fruit/pineapple')
-    return render_template("index.html", username=session['username'], apple_data=apple_data, banana_data=banana_data, strawberry_data=strawberry_data, pineapple_data=pineapple_data)
+    fruits = ['apple','banana','strawberry','pineapple']
+    fruit_data = []
+    for x in fruits:
+        with urllib.request.urlopen('https://www.fruityvice.com/api/fruit/{}'.format(x)) as response:
+            data = response.read()
+            fruit_data.append(data)
+    return render_template("index.html", username=session['username'], fruit_data=fruit_data )#, apple_data = apple, banana_data = banana, strawberry_data = strawberry, pineapple_data = pineapple)
 
 
 @app.route("/signupRequest", methods=["POST"])
