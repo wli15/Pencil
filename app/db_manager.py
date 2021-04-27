@@ -42,3 +42,16 @@ def checkLogin(username, password):
     if username == info[0] and password == info[1]:
         return (True, "", info[2])
     return (False, "Username or password incorrect", info[2])
+
+
+def add_favorites(user, rname, url, imageURl, ingredients):
+    insert = "INSERT INTO recipes (user_id, recipe_name, recipe_url, recipe_image_url, recipe_ingredients) VALUES (?, ?, ?, ?, ?);"
+    data=(user, rname, url, imageURL, ingredients)
+    c.execute(insert, data)
+    db.commit()
+
+def get_favorites(user):
+    userID=user
+    c.execute('SELECT * FROM recipes WHERE id=?', (userID,))
+    data=c.fetchall()
+    return data
