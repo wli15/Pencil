@@ -11,4 +11,4 @@ A website with an emphasis on fruits. The site will allow the user to choose a f
 ## Launch Codes
 - Clone the Pencil repo: 
 - cd into the Pencil/app
-- python '_init_.py'
+- python '__init__.py'
