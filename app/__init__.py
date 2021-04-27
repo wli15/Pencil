@@ -34,7 +34,7 @@ def home():
     banana_data = requests.get('https://www.fruityvice.com/api/fruit/banana')
     strawberry_data = requests.get('https://www.fruityvice.com/api/fruit/strawberry')
     pineapple_data = requests.get('https://www.fruityvice.com/api/fruit/pineapple')
-    return render_template("index.html", username=session['username'], apple_data, banana_data, strawberry_data, pineapple_data)
+    return render_template("index.html", username=session['username'], apple_data=apple_data, banana_data=banana_data, strawberry_data=strawberry_data, pineapple_data=pineapple_data)
 
 
 @app.route("/signupRequest", methods=["POST"])
