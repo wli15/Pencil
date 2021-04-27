@@ -5,5 +5,10 @@ Team Pencil for p3 SoftDev
 - Ethan Machleder
 - William Li(PM)
 
+## Description
+A website with an emphasis on fruits. The site will allow the user to choose a fruit that intrigues them and recipes including the chosen fruit would follow.
 
-A website with an emphasis on fruits. The purpose if for the user to choose a fruit that intrigues them and recipes including chosen fruit would follow
+## Launch Codes
+- Clone the Pencil repo: 
+- cd into the Pencil/app
+- python '_init_.py'
