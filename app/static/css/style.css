@@ -6,7 +6,7 @@ body {
 nav {
     /* background-color: #DCDCF5; */
     background-color: #A8A8FF;
-    color: #00006F;
+    color: white;
 }
 
 nav.a {
@@ -19,15 +19,15 @@ nav.a:hover {
 
 #home {
     font-weight: bold;
-    color: #00006F;
+    color: whitesmoke;
 }
 
 .nav-link {
-    color: #00006F;
+    color: whitesmoke;
     white-space: nowrap;
 }
 
 .navbar-brand {
-    color: #00006F;
+    color: whitesmoke;
 }
 
