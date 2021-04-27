@@ -78,7 +78,8 @@
 
         <div class="grid-container">
           <section class="basic-grid">
-            <form action="/recipes?fruit=banana" method="GET">
+            <form action="/recipes" method="GET">
+              <input type="hidden" name="fruit" value="banana" />
               <button type="submit" id="banana" class="card"><img src="https://img.icons8.com/fluent-systems-regular/48/000000/banana.png"/></button>
             </form>
             <div id="banana-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">
@@ -89,7 +90,8 @@
               {% endfor %}
               <p style="margin-bottom: 1px;">}</p>
             </div>
-            <form action="/recipes?fruit=strawberry" method="GET">
+            <form action="/recipes" method="GET">
+              <input type="hidden" name="fruit" value="strawberry" />
               <button type="submit" id="strawberry" class="card"><img src="https://img.icons8.com/windows/64/000000/strawberry.png"/></button>
             </form>
             <div id="strawberry-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">
@@ -100,7 +102,8 @@
               {% endfor %}
               <p style="margin-bottom: 1px;">}</p>
             </div>
-            <form action="/recipes?fruit=apple" method="GET">
+            <form action="/recipes" method="GET">
+              <input type="hidden" name="fruit" value="apple" />
               <button type="submit" id="apple" class="card"><img src="https://img.icons8.com/pastel-glyph/64/000000/apple--v1.png"/></button>
             </form>
             <div id="apple-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">
@@ -111,7 +114,8 @@
               {% endfor %}
               <p style="margin-bottom: 1px;">}</p>
             </div>
-            <form action="/recipes?fruit=pineapple" method="GET">
+            <form action="/recipes" method="GET">
+              <input type="hidden" name="fruit" value="pineapple" />
               <button type="submit" id="pineapple" class="card"><img src="https://img.icons8.com/metro/52/000000/pineapple.png"/></button>
             </form>
             <div id="pineapple-popup" style="display: none;" class="shadow-lg p-3 mb-5 bg-body rounded">

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% block head %}
+        <style>
+            .grid-container {
+              display: grid;
+              margin-left: 30%;
+              margin-right: 30%;
+            }
+
+            .basic-grid {
+                display: grid;
+                gap: 1rem;
+
+                grid-template-columns: 1fr;
+            }
+
+            .btn {
+                background-color: #DCDCF5; 
+                color: #00006F;
+            }
+
+            .btn:hover {
+                background-color: #00868C;
+                color: white;
+            }
+
+            .card {
+                border-radius: 10px;
+            }
+        </style>
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block main %}
+        <div class="container">
+            <br>
+            <div class="row align-items-center">
+                <div class="col"></div>
+                <div class="col" style="text-align: center;">
+                    <h1 style="font-size: 3rem; font-weight: 300;">recipes that use {{ fruit }}:</h1>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+        
+        <br><br>
+
+        <div class="grid-container">
+            <section class="basic-grid">
+                {% for recipe in recipe_data %}
+                <div class="card" style="width: 100%;">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe['name'] }}</h5>
+                        <img style="border-radius: 50%; transform: scale(0.9);" src="{{ recipe['image_url'] }}" class="card-img-top" alt="img">
+                        <h5 class="card-text">Ingredients:</h5>
+                        {% for ingredient in recipe['ingredients'] %}
+                        <ul class="card-text" style="margin-bottom: 5px;">
+                            <li style="margin-bottom: 1px;">{{ ingredient }}</li>
+                        </ul>
+                        {% endfor %}
+                        <br>
+                        <a href="{{ recipe['url'] }}" class="btn btn-primary">go to recipe</a>
+                      </div>
+                </div>
+                <br>
+                {% endfor %}
+            </section>
+        </div>
+
+        <p>{{ json_data }}</p>
+        {% endblock %}
+    </body>
+</html>

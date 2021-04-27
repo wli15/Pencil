@@ -89,6 +89,26 @@ def loginRequest():
     # return an error
     return render_template("error.html", error=error)
 
+@app.route("/recipes")
+def recipes():
+    fruit = request.args.get('fruit')
+
+    with urllib.request.urlopen("https://api.edamam.com/search?q={}&app_id=377f7e36&app_key=2de86ea54eb07fb4df0a3db9fde0e3a0&from=0&to=5".format(fruit)) as response:
+        data = response.read()
+        json_data = json.loads(data)
+        recipe_list = []
+        for i in range(0, 5):
+            temp_recipe = {}
+            recipe_data = json_data['hits'][i]['recipe']
+            temp_recipe['name'] = recipe_data['label']
+            temp_recipe['url'] = recipe_data['url']
+            temp_recipe['image_url'] = recipe_data['image']
+            temp_recipe['ingredients'] = recipe_data['ingredientLines']
+            recipe_list.append(temp_recipe)
+
+
+    return render_template("recipes.html", fruit=fruit, recipe_data=recipe_list)
+
 
 @app.route("/logout")
 def logout():
