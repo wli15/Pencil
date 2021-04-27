@@ -43,6 +43,11 @@
               margin-right: 20%;
             }
 
+            #banana-popup, #strawberry-popup {
+              position: absolute;
+              transition: 0.1s;
+            }
+
             
         </style>
         {% endblock %}
@@ -68,6 +73,7 @@
             <div id="banana" class="card">banana</div>
             <div id="banana-popup" style="display: none;">banana info</div>
             <div id="strawberry" class="card">strawberry</div>
+            <div id="strawberry-popup" style="display: none;">strawberry info</div>
             <div id="apple" class="card">apple</div>
             <div id="pineapple" class="card">pineapple</div>
           </section>
@@ -99,17 +105,33 @@
           let strawberry = document.getElementById("strawberry");
           let apple = document.getElementById("apple");
           let pineapple = document.getElementById("pineapple");
+
+          let banana_popup = document.getElementById("banana-popup");
+          let strawberry_popup = document.getElementById("strawberry-popup");
+
+          document.addEventListener('mousemove', function(e){
+            var x = e.clientX;
+            var y = e.clientY;
+            banana_popup.style.left = x + 'px';
+            banana_popup.style.top = y + 'px';
+            strawberry_popup.style.left = x + 'px';
+            strawberry_popup.style.top = y + 'px';
+          });
           
 
           banana.onmouseover = () => {
             console.log(banana.id);
-            document.getElementById("banana-popup").style.display = 'grid';
+            banana_popup.style.display = 'grid';
           }
           banana.onmouseout = () => {
-            document.getElementById("banana-popup").style.display = 'none';
+            banana_popup.style.display = 'none';
           }
           strawberry.onmouseover = () => {
             console.log(strawberry.id);
+            strawberry_popup.style.display = 'grid';
+          }
+          strawberry.onmouseout = () => {
+            strawberry_popup.style.display = 'none';
           }
           apple.onmouseover = () => {
             console.log(apple.id);
