@@ -23,9 +23,6 @@
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-
-                animation: card-entrance 700ms ease-out;
-                animation-fill-mode: backwards;
             }
   
             .card:hover {
@@ -45,6 +42,7 @@
               margin-left: 20%;
               margin-right: 20%;
             }
+
             
         </style>
         {% endblock %}
@@ -68,6 +66,7 @@
         <div class="grid-container">
           <section class="basic-grid">
             <div id="banana" class="card">banana</div>
+            <div id="banana-popup" style="display: none;">banana info</div>
             <div id="strawberry" class="card">strawberry</div>
             <div id="apple" class="card">apple</div>
             <div id="pineapple" class="card">pineapple</div>
@@ -104,6 +103,10 @@
 
           banana.onmouseover = () => {
             console.log(banana.id);
+            document.getElementById("banana-popup").style.display = 'grid';
+          }
+          banana.onmouseout = () => {
+            document.getElementById("banana-popup").style.display = 'none';
           }
           strawberry.onmouseover = () => {
             console.log(strawberry.id);
