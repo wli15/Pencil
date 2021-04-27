@@ -36,7 +36,8 @@ def home():
     for x in fruits:
         with urllib.request.urlopen('https://www.fruityvice.com/api/fruit/{}'.format(x)) as response:
             data = response.read()
-            fruit_data.append(data)
+            json_data = json.loads(data)
+            fruit_data.append(json_data)
     return render_template("index.html", username=session['username'], fruit_data=fruit_data )#, apple_data = apple, banana_data = banana, strawberry_data = strawberry, pineapple_data = pineapple)
 
 

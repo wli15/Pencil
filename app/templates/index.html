@@ -76,7 +76,15 @@
 
         <br>
 
-        <p>{{ fruit_data }}</p>
+        {% for fruit in fruit_data %}
+
+          {% for key, value in fruit.items() %}
+
+            <p>{{ key }}: {{ value }}</p>
+
+          {% endfor %}
+
+        {% endfor %}
 
         <script>
           // let fruits = document.getElementsByClassName("card");
