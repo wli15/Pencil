@@ -107,7 +107,7 @@ def recipes():
             recipe_list.append(temp_recipe)
 
 
-    return render_template("recipes.html", fruit=fruit, recipe_data=recipe_list)
+    return render_template("recipes.html", user_id=session['user_id'], fruit=fruit, recipe_data=recipe_list)
 
 
 @app.route("/logout")

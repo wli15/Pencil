@@ -54,26 +54,67 @@
             <section class="basic-grid">
                 {% for recipe in recipe_data %}
                 <div class="card" style="width: 100%;">
-                    
                     <div class="card-body">
-                        <h5 class="card-title">{{ recipe['name'] }}</h5>
+                        <h5 id="title" class="card-title">{{ recipe['name'] }}</h5>
                         <img style="border-radius: 50%; transform: scale(0.9);" src="{{ recipe['image_url'] }}" class="card-img-top" alt="img">
                         <h5 class="card-text">Ingredients:</h5>
+                        <ul name="ingredients" class="card-text" style="margin-bottom: 5px;">
                         {% for ingredient in recipe['ingredients'] %}
-                        <ul class="card-text" style="margin-bottom: 5px;">
-                            <li style="margin-bottom: 1px;">{{ ingredient }}</li>
-                        </ul>
+                            <li name="ingredient" style="margin-bottom: 1px;">{{ ingredient }}</li>
                         {% endfor %}
+                        </ul>
                         <br>
-                        <a href="{{ recipe['url'] }}" class="btn btn-primary">go to recipe</a>
+                        <a name="recipe-link" href="{{ recipe['url'] }}" class="btn btn-primary">go to recipe</a>
+                        <button name="save-button" class="btn btn-primary">save recipe</button>
                       </div>
                 </div>
                 <br>
                 {% endfor %}
             </section>
+            <p id="user_id" style="display: none;">{{ user_id }}</p>
         </div>
 
-        <p>{{ json_data }}</p>
+        <script>
+            var db = openDatabase('fruits', 1.0, 'database for fruit recipes app', 2 * 1024 * 1024);
+
+            let buttons = document.getElementsByName("save-button");
+            let names = document.getElementsByClassName("card-title");
+            let images = document.getElementsByClassName("card-img-top");
+            let urls = document.getElementsByName("recipe-link");
+            let ingredients = document.getElementsByName("ingredients");
+            let user_id = document.getElementById("user_id").innerHTML;
+
+            var i = 0;
+            for (i; i < buttons.length; i++) {
+                let button = buttons[i];
+                let name = names[i].innerHTML;
+                let image = images[i].src;
+                let url = urls[i].href;
+                console.log(name, image, url);
+                let ingredient = ingredients[i];
+                let ingredientList = "";
+                
+                button.onclick = () => {
+                    for (child of ingredient.children) {
+                        ingredientList += child.innerHTML + ', ';
+                        
+                    }
+                    const ingredientListFix = ingredientList.slice(0, -2);
+                    console.log(ingredientListFix);
+                    var r = confirm("Would you like to save this recipe?");
+                    if (r == true) {
+                        console.log("You would like to save this recipe!");
+                        db.transaction(function (tx) {
+                            tx.executeSql(`INSERT INTO recipes(user_id, recipe_name, recipe_url, recipe_image_url, recipe_ingredients) VALUES(?, ?, ?, ?, ?);`, [user_id, name, url, image, ingredientListFix]);
+                        });
+                    }
+                    else {
+                        console.log("It was cancelled :(");
+                    }
+                }
+                
+            }
+        </script>
         {% endblock %}
     </body>
 </html>
