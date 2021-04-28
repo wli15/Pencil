@@ -79,20 +79,6 @@
         </div>
 
         <script>
-            
-            const myStorage = window.localStorage;
-
-            let button_type = "";
-
-            if (myStorage.getItem("button-value") == "save") {
-                button_type = "save";
-            }
-            else if (myStorage.getItem("button-value") == "remove") {
-                button_type = "remove";
-            }
-            else {
-                button_type = "save";
-            }
 
             let buttons = document.getElementsByTagName("button");
             let names = document.getElementsByClassName("card-title");
@@ -105,15 +91,6 @@
             for (i; i < buttons.length; i++) {
                 
                 let button = buttons[i];
-                if (myStorage.getItem("button-name") == null) {
-                    button.innerHTML = "save recipe";
-                }
-                else if (i == myStorage.getItem("button-name").slice(-1) && button_type == "save") {
-                    button.innerHTML = "save recipe";
-                }
-                else if (i == myStorage.getItem("button-name").slice(-1) && button_type == "remove") {
-                    button.innerHTML = "remove favorite";
-                }
 
                 let name = names[i].innerHTML;
                 let image = images[i].src;
@@ -128,33 +105,18 @@
                     }
                     const ingredientListFix = ingredientList.slice(0, -2);
 
-                    if (e.srcElement.innerHTML == "save recipe") {
-                        var r = confirm("Would you like to save this recipe?");
-                        if (r == true) {
-                            console.log("You would like to save this recipe!");
-                            myStorage.setItem("button-name", e.srcElement.name);
-                            myStorage.setItem("button-value", "remove");
-                            window.location.href = `/saveRecipe?fruit=${fruit}&name=${name}&image=${image}&url=${url}&ingredients=${ingredientListFix}`;
-                        }
-                        else {
-                            console.log("It was cancelled :(");
-                        }
+                    var r = confirm("Would you like to save this recipe?");
+                    if (r == true) {
+                        console.log("You would like to save this recipe!");
+                        window.location.href = `/saveRecipe?fruit=${fruit}&name=${name}&image=${image}&url=${url}&ingredients=${ingredientListFix}`;
+                        alert("Recipe saved successfully!");
                     }
                     else {
-                        var r = confirm("Would you like to remove this recipe from your favorites?");
-                        if (r == true) {
-                            console.log("You would like to remove this recipe!");
-                            myStorage.setItem("button-name", e.srcElement.name);
-                            myStorage.setItem("button-value", "save");
-                            window.location.href = `/removeRecipe?fruit=${fruit}&name=${name}`;
-                        }
-                        else {
-                            console.log("It was cancelled :(");
-                        }
+                        console.log("It was cancelled :(");
                     }
                     
                 }
-                
+                    
             }
         </script>
         {% endblock %}
