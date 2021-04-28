@@ -80,6 +80,8 @@
 
         <script>
 
+            const myStorage = localStorage;
+
             let buttons = document.getElementsByTagName("button");
             let names = document.getElementsByClassName("card-title");
             let images = document.getElementsByClassName("card-img-top");
@@ -91,6 +93,9 @@
             for (i; i < buttons.length; i++) {
                 
                 let button = buttons[i];
+                if (myStorage.getItem(button.name) != null) {
+                    button.id = "pressed";
+                }
 
                 let name = names[i].innerHTML;
                 let image = images[i].src;
@@ -100,19 +105,26 @@
                 let ingredientList = "";
                 
                 button.onclick = (e) => {
-                    for (child of ingredient.children) {
-                        ingredientList += child.innerHTML + ', ';
-                    }
-                    const ingredientListFix = ingredientList.slice(0, -2);
-
-                    var r = confirm("Would you like to save this recipe?");
-                    if (r == true) {
-                        console.log("You would like to save this recipe!");
-                        window.location.href = `/saveRecipe?fruit=${fruit}&name=${name}&image=${image}&url=${url}&ingredients=${ingredientListFix}`;
-                        alert("Recipe saved successfully!");
+                    console.log(e.srcElement.id);
+                    if (e.srcElement.id == "pressed") {
+                        alert("This recipe has already been saved. Go to my recipes for more actions!");
                     }
                     else {
-                        console.log("It was cancelled :(");
+                        for (child of ingredient.children) {
+                        ingredientList += child.innerHTML + ', ';
+                        }
+                        const ingredientListFix = ingredientList.slice(0, -2);
+
+                        var r = confirm("Would you like to save this recipe?");
+                        if (r == true) {
+                            console.log("You would like to save this recipe!");
+                            window.location.href = `/saveRecipe?fruit=${fruit}&name=${name}&image=${image}&url=${url}&ingredients=${ingredientListFix}`;
+                            alert("Recipe saved successfully!");
+                            myStorage.setItem(e.srcElement.name, "pressed");
+                        }
+                        else {
+                            console.log("It was cancelled :(");
+                        }
                     }
                     
                 }
