@@ -65,7 +65,8 @@
                         </ul>
                         <br>
                         <a name="recipe-link" href="{{ recipe['url'] }}" class="btn btn-primary">go to recipe</a>
-                        <button name="save-button" class="btn btn-primary">save recipe</button>
+                        <button name="save-button{{loop.index - 1}}" class="btn btn-primary">save recipe</button>
+                        <!-- <button name="remove-button" class="btn btn-primary" style="display: none;">remove favorite</button> -->
                       </div>
                 </div>
                 <br>
@@ -76,7 +77,33 @@
 
         <script>
             
-            let buttons = document.getElementsByName("save-button");
+            const myStorage = window.localStorage;
+
+            let button_type = "";
+
+            if (myStorage.getItem("button-value") == "save") {
+                button_type = "save";
+            }
+            else if (myStorage.getItem("button-value") == "remove") {
+                button_type = "remove";
+            }
+            else {
+                button_type = "save";
+            }
+
+            // if (myStorage.getItem("button") == null) {
+            //         myStorage.setItem("button", "save")
+            // }
+
+            // if (myStorage.getItem("button") == "save") {
+            //     button_type = "save";
+            // }
+            // else if (myStorage.getItem("button") == "remove") {
+            //     button_type = "save";
+            // }
+
+            let buttons = document.getElementsByTagName("button");
+            // let remove_buttons = document.getElementsByName("remove-button");
             let names = document.getElementsByClassName("card-title");
             let images = document.getElementsByClassName("card-img-top");
             let urls = document.getElementsByName("recipe-link");
@@ -85,28 +112,57 @@
 
             var i = 0;
             for (i; i < buttons.length; i++) {
+                
                 let button = buttons[i];
+                if (myStorage.getItem("button-name") == null) {
+                    button.innerHTML = "save recipe";
+                }
+                else if (i == myStorage.getItem("button-name").slice(-1) && button_type == "save") {
+                    button.innerHTML = "save recipe";
+                }
+                else if (i == myStorage.getItem("button-name").slice(-1) && button_type == "remove") {
+                    button.innerHTML = "remove favorite";
+                }
+                // let remove_button = remove_buttons[i];
+
                 let name = names[i].innerHTML;
                 let image = images[i].src;
                 let url = urls[i].href;
-                
+
                 let ingredient = ingredients[i];
                 let ingredientList = "";
                 
-                button.onclick = () => {
+                button.onclick = (e) => {
                     for (child of ingredient.children) {
                         ingredientList += child.innerHTML + ', ';
                     }
                     const ingredientListFix = ingredientList.slice(0, -2);
 
-                    var r = confirm("Would you like to save this recipe?");
-                    if (r == true) {
-                        console.log("You would like to save this recipe!");
-                        window.location.href = `/saveRecipe?fruit=${fruit}&name=${name}&image=${image}&url=${url}&ingredients=${ingredientListFix}`;
+                    if (e.srcElement.innerHTML == "save recipe") {
+                        var r = confirm("Would you like to save this recipe?");
+                        if (r == true) {
+                            console.log("You would like to save this recipe!");
+                            myStorage.setItem("button-name", e.srcElement.name);
+                            myStorage.setItem("button-value", "remove");
+                            window.location.href = `/saveRecipe?fruit=${fruit}&name=${name}&image=${image}&url=${url}&ingredients=${ingredientListFix}`;
+                        }
+                        else {
+                            console.log("It was cancelled :(");
+                        }
                     }
                     else {
-                        console.log("It was cancelled :(");
+                        var r = confirm("Would you like to remove this recipe from your favorites?");
+                        if (r == true) {
+                            console.log("You would like to remove this recipe!");
+                            myStorage.setItem("button-name", e.srcElement.name);
+                            myStorage.setItem("button-value", "save");
+                            window.location.href = `/removeRecipe?fruit=${fruit}&name=${name}`;
+                        }
+                        else {
+                            console.log("It was cancelled :(");
+                        }
                     }
+                    
                 }
                 
             }

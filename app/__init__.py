@@ -121,11 +121,18 @@ def saveRecipe():
     print(recipe_image_url)
     add_favorites(session['user_id'], recipe_name, recipe_url, recipe_image_url, ingredients)
     print("Recipe saved!")
-    print(recipe_name, recipe_image_url, recipe_url, ingredients)
     return redirect("/recipes?fruit={}".format(fruit))
 
 
-# @app.route("/removeRecipe", methods=["GET"])
+@app.route("/removeRecipe", methods=["GET"])
+def removeRecipe():
+    fruit = request.args.get("fruit")
+    recipe_name = request.args.get("name")
+
+    remove_favorites(session['user_id'], recipe_name)
+    print("Recipe successfully deleted!")
+
+    return redirect("/recipes?fruit={}".format(fruit))
 
 
 @app.route("/logout")

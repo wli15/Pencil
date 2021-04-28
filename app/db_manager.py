@@ -55,3 +55,8 @@ def get_favorites(user):
     c.execute('SELECT * FROM recipes WHERE id=?', (userID,))
     data=c.fetchall()
     return data
+
+def remove_favorites(user, rname):
+    command = 'DELETE FROM recipes WHERE user_id = {} AND recipe_name = "{}";'.format(user, rname)
+    c.execute(command)
+    db.commit()
