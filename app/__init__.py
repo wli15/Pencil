@@ -89,7 +89,7 @@ def loginRequest():
     # return an error
     return render_template("error.html", error=error)
 
-@app.route("/recipes")
+@app.route("/recipes", methods=["GET"])
 def recipes():
     fruit = request.args.get('fruit')
 
@@ -107,7 +107,25 @@ def recipes():
             recipe_list.append(temp_recipe)
 
 
-    return render_template("recipes.html", user_id=session['user_id'], fruit=fruit, recipe_data=recipe_list)
+    return render_template("recipes.html", fruit=fruit, recipe_data=recipe_list)
+
+
+@app.route("/saveRecipe", methods=["GET"])
+def saveRecipe():
+    fruit = request.args.get("fruit")
+    recipe_name = request.args.get("name")
+    recipe_image_url = request.args.get("image")
+    recipe_url = request.args.get("url")
+    ingredients = request.args.get("ingredients")
+
+    print(recipe_image_url)
+    add_favorites(session['user_id'], recipe_name, recipe_url, recipe_image_url, ingredients)
+    print("Recipe saved!")
+    print(recipe_name, recipe_image_url, recipe_url, ingredients)
+    return redirect("/recipes?fruit={}".format(fruit))
+
+
+# @app.route("/removeRecipe", methods=["GET"])
 
 
 @app.route("/logout")

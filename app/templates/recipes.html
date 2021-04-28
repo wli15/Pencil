@@ -71,18 +71,17 @@
                 <br>
                 {% endfor %}
             </section>
-            <p id="user_id" style="display: none;">{{ user_id }}</p>
+            <p id="fruit" style="display: none;">{{ fruit }}</p>
         </div>
 
         <script>
-            var db = openDatabase('fruits', 1.0, 'database for fruit recipes app', 2 * 1024 * 1024);
-
+            
             let buttons = document.getElementsByName("save-button");
             let names = document.getElementsByClassName("card-title");
             let images = document.getElementsByClassName("card-img-top");
             let urls = document.getElementsByName("recipe-link");
             let ingredients = document.getElementsByName("ingredients");
-            let user_id = document.getElementById("user_id").innerHTML;
+            let fruit = document.getElementById("fruit").innerHTML;
 
             var i = 0;
             for (i; i < buttons.length; i++) {
@@ -90,23 +89,20 @@
                 let name = names[i].innerHTML;
                 let image = images[i].src;
                 let url = urls[i].href;
-                console.log(name, image, url);
+                
                 let ingredient = ingredients[i];
                 let ingredientList = "";
                 
                 button.onclick = () => {
                     for (child of ingredient.children) {
                         ingredientList += child.innerHTML + ', ';
-                        
                     }
                     const ingredientListFix = ingredientList.slice(0, -2);
-                    console.log(ingredientListFix);
+
                     var r = confirm("Would you like to save this recipe?");
                     if (r == true) {
                         console.log("You would like to save this recipe!");
-                        db.transaction(function (tx) {
-                            tx.executeSql(`INSERT INTO recipes(user_id, recipe_name, recipe_url, recipe_image_url, recipe_ingredients) VALUES(?, ?, ?, ?, ?);`, [user_id, name, url, image, ingredientListFix]);
-                        });
+                        window.location.href = `/saveRecipe?fruit=${fruit}&name=${name}&image=${image}&url=${url}&ingredients=${ingredientListFix}`;
                     }
                     else {
                         console.log("It was cancelled :(");

@@ -9,7 +9,7 @@ def create_tables():
 
     command = "CREATE TABLE IF NOT EXISTS users(username TEXT, password TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT);"
 
-    command += "CREATE TABLE IF NOT EXISTS recipes(user_id INT, recipe_name TEXT, recipe_url TEXT, recipe_image_url TEXT, recipe_ingrediants TEXT);"
+    command += "CREATE TABLE IF NOT EXISTS recipes(user_id INT, recipe_name TEXT, recipe_url TEXT, recipe_image_url TEXT, recipe_ingredients TEXT);"
 
     c.executescript(command)
     db.commit()
@@ -44,7 +44,7 @@ def checkLogin(username, password):
     return (False, "Username or password incorrect", info[2])
 
 
-def add_favorites(user, rname, url, imageURl, ingredients):
+def add_favorites(user, rname, url, imageURL, ingredients):
     insert = "INSERT INTO recipes (user_id, recipe_name, recipe_url, recipe_image_url, recipe_ingredients) VALUES (?, ?, ?, ?, ?);"
     data=(user, rname, url, imageURL, ingredients)
     c.execute(insert, data)
