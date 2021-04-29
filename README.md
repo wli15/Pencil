@@ -14,6 +14,7 @@ A website with an emphasis on fruits. The site will allow the user to choose a f
 - [used for fruit imgaes](https://tropicalfruitandveg.com/)
 ## Launch Codes
 - Clone the Pencil repo: `git clone https://github.com/wli15/Pencil.git`
+- `pip install -r requirements.txt`
 - cd into the Pencil/app
 - replace API key files with personal keys
 - `python __init__.py`
