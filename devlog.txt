@@ -17,3 +17,21 @@ arielS, ethanM, williamL -- 2021-04-21 7:45
 arielS, ethanM, williamL -- 2021-04-22 9:50
 - completed the design doc
 - linked the submodule again
+
+
+arielS, ethanM -- 2021-04-24 9:00
+- created user authentication
+- error handling
+- updated design doc based on feedback
+- basic flask app
+
+arielS, ethanM, williamL -- 2021-04-27 8:11
+- design upgrades using cards from bootstrap
+- read.me filled out
+- JavaScript usage for favoriting recipes button
+- finished customization of site
+
+arielS, ethanM, williamL -- 2021-04-28 10:00
+- completed my recipe page
+- attempted to use third api, json returns are unusable
+- revised code for an apikey txt file for personal apikey
