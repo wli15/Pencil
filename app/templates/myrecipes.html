@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        {% block head %}
+        <style>
+            .grid-container {
+              display: grid;
+              margin-left: 30%;
+              margin-right: 30%;
+            }
+
+            .basic-grid {
+                display: grid;
+                gap: 1rem;
+
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                box-shadow: 12px 12px 2px 1px rgba(3, 8, 20, 0.1);
+            }
+
+            .btn {
+                background-color: #DCDCF5; 
+                color: #00006F;
+            }
+
+            .btn:hover {
+                background-color: #00868C;
+                color: white;
+            }
+
+            .card {
+                border-radius: 10px;
+            }
+        </style>
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block main %}
+        <div class="container">
+            <br>
+            <div class="row align-items-center">
+                <div class="col"></div>
+                <div class="col" style="text-align: center;">
+                    <h1 style="font-size: 3rem; font-weight: 300;">your saved recipes:</h1>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+        
+        <br><br>
+
+        <div class="grid-container">
+            <section class="basic-grid">
+                {% for recipe in recipe_data %}
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                        <h5 id="title" class="card-title">{{ recipe['name'] }}</h5>
+                        <img style="border-radius: 50%; transform: scale(0.9);" src="{{ recipe['image_url'] }}" class="card-img-top" alt="img">
+                        <h5 class="card-text">Ingredients:</h5>
+                        <ul name="ingredients" class="card-text" style="margin-bottom: 5px;">
+                        {% for ingredient in recipe['ingredients'] %}
+                            <li name="ingredient" style="margin-bottom: 1px;">{{ ingredient }}</li>
+                        {% endfor %}
+                        </ul>
+                        <br>
+                        <a name="recipe-link" href="{{ recipe['url'] }}" class="btn btn-primary">go to recipe</a>
+                        <button name="remove-button" class="btn btn-primary">remove recipe</button>
+                      </div>
+                </div>
+                <br>
+                {% endfor %}
+            </section>
+        </div>
+
+        <script>
+
+            let buttons = document.getElementsByTagName("button");
+            let names = document.getElementsByClassName("card-title");
+
+            var i = 0;
+            for (i; i < buttons.length; i++) {
+                
+                let button = buttons[i];
+                let name = names[i].innerHTML;
+                
+                button.onclick = (e) => {
+                    console.log(e.srcElement.id);
+
+                        var r = confirm("Would you like to remove this recipe from your favorites?");
+                        if (r == true) {
+                            console.log("You would like to remove this recipe!");
+                            window.location.href = `/removeRecipe?name=${name}`;
+                            alert("Recipe removed successfully!");
+                        }
+                        else {
+                            console.log("It was cancelled :(");
+                        }
+                    }
+                    
+                }
+        </script>
+        {% endblock %}
+    </body>
+</html>

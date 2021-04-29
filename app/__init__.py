@@ -10,6 +10,11 @@ app.secret_key = os.urandom(32)
 # creates db tables
 create_tables()
 
+EDAMAM_ID = open("keys/edamamid.txt", "r")
+EDAMAM_KEY = open("keys/key.txt", "r")
+print(EDAMAM_KEY.read())
+
+
 
 @app.route("/")
 def index():
@@ -93,7 +98,7 @@ def loginRequest():
 def recipes():
     fruit = request.args.get('fruit')
 
-    with urllib.request.urlopen("https://api.edamam.com/search?q={}&app_id=377f7e36&app_key=2de86ea54eb07fb4df0a3db9fde0e3a0&from=0&to=5".format(fruit)) as response:
+    with urllib.request.urlopen("https://api.edamam.com/search?q={}&app_id={}&app_key={}&from=0&to=5".format(fruit, EDAMAM_ID.read(), EDAMAM_KEY.read())) as response:
         data = response.read()
         json_data = json.loads(data)
         recipe_list = []
@@ -126,13 +131,47 @@ def saveRecipe():
 
 @app.route("/removeRecipe", methods=["GET"])
 def removeRecipe():
-    fruit = request.args.get("fruit")
     recipe_name = request.args.get("name")
 
     remove_favorites(session['user_id'], recipe_name)
     print("Recipe successfully deleted!")
 
-    return redirect("/recipes?fruit={}".format(fruit))
+    return redirect("/myRecipes")
+
+
+@app.route("/myRecipes")
+def myRecipes():
+    recipe_data = get_favorites(session['user_id'])
+    recipe_list = []
+    for recipe in recipe_data:
+        recipe_dict = {}
+        recipe_dict['name'] = recipe[0]
+        recipe_dict['url'] = recipe[1]
+        recipe_dict['image_url'] = recipe[2]
+        recipe_ingredients = recipe[3].split(', ')
+        recipe_dict['ingredients'] = recipe_ingredients
+        recipe_list.append(recipe_dict)
+    
+    return render_template("myrecipes.html", recipe_data=recipe_list)
+
+
+# @app.route("/fruits")
+# def fruits():
+#     with urllib.request.urlopen("http://api.tropicalfruitandveg.com/tfvjsonapi.php?tfvitem={}".format("banana")) as response:
+#         data = response.read()
+#         strdata = str(data)
+#         sliced_data = strdata[2:len(strdata) - 3].replace("\\", "")
+#         data_dict = json.loads(sliced_data)
+#         # json_data = json.loads(data)
+
+#     return render_template("fruits.html", json_data=data_dict)
+
+"""
+We wanted to include a third api (the one above) but it is poorly made and 
+we could not find a way to get the json data to load properly. We tried
+turning it into a string and manipulating it but we simply didn't have 
+enough time to find a good solution.
+"""
 
 
 @app.route("/logout")

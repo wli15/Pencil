@@ -52,7 +52,7 @@ def add_favorites(user, rname, url, imageURL, ingredients):
 
 def get_favorites(user):
     userID=user
-    c.execute('SELECT * FROM recipes WHERE id=?', (userID,))
+    c.execute('SELECT recipe_name, recipe_url, recipe_image_url, recipe_ingredients FROM recipes WHERE user_id=?', (userID,))
     data=c.fetchall()
     return data
 
