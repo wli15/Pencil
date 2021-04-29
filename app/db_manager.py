@@ -1,3 +1,8 @@
+# Team Pencil (Ari Schechter, Ethan Machleder, William Li)
+# SoftDev
+# P3: potential-eureka
+# 2021-04-29
+
 import sqlite3
 
 DB_FILE = "fruits.db"

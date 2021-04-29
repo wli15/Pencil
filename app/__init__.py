@@ -1,3 +1,8 @@
+# Team Pencil (Ari Schechter, Ethan Machleder, William Li)
+# SoftDev
+# P3: potential-eureka
+# 2021-04-29
+
 from flask import Flask, render_template, redirect, request, session
 import urllib.request
 from db_manager import *
@@ -10,10 +15,8 @@ app.secret_key = os.urandom(32)
 # creates db tables
 create_tables()
 
-EDAMAM_ID = open("keys/edamamid.txt", "r")
-EDAMAM_KEY = open("keys/key.txt", "r")
-print(EDAMAM_KEY.read())
-
+EDAMAM_ID = open("keys/edamamid.txt", "r").read()
+EDAMAM_KEY = open("keys/key.txt", "r").read()
 
 
 @app.route("/")
@@ -98,7 +101,7 @@ def loginRequest():
 def recipes():
     fruit = request.args.get('fruit')
 
-    with urllib.request.urlopen("https://api.edamam.com/search?q={}&app_id={}&app_key={}&from=0&to=5".format(fruit, EDAMAM_ID.read(), EDAMAM_KEY.read())) as response:
+    with urllib.request.urlopen("https://api.edamam.com/search?q=" + fruit + "&app_id=" + EDAMAM_ID + "&app_key=" + EDAMAM_KEY + "&from=0&to=5") as response:
         data = response.read()
         json_data = json.loads(data)
         recipe_list = []
