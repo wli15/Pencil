@@ -15,8 +15,8 @@ app.secret_key = os.urandom(32)
 # creates db tables
 create_tables()
 
-EDAMAM_ID = open("keys/edamamid.txt", "r").read()
-EDAMAM_KEY = open("keys/key.txt", "r").read()
+EDAMAM_ID = open("keys/id_api0.txt", "r").read()
+EDAMAM_KEY = open("keys/key_api0.txt", "r").read()
 
 
 @app.route("/")
