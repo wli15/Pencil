@@ -81,6 +81,8 @@ def signupRequst():
         return render_template("error.html", error="Input fields cannot be left blank. Please fill both in")
     registerUser(tempUser, tempPass)
     session['username'] = tempUser
+    username, password, user_id = getUserInfo(session['username'])
+    session['user_id'] = user_id
     return redirect("/home")
 
 
